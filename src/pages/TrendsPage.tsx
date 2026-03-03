@@ -50,7 +50,7 @@ const TrendsPage = () => {
           <h1 className="text-xl font-bold">📈 7天趋势分析</h1>
         </div>
 
-        <Card>
+        <Card className="rounded-2xl card-elevated border-0">
           <CardContent className="pt-6">
             <p className="text-sm text-muted-foreground mb-4 text-center">每日目标: {target} kcal</p>
             <div className="h-52">
@@ -73,7 +73,7 @@ const TrendsPage = () => {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="rounded-2xl card-elevated border-0">
           <CardContent className="pt-6">
             <div className="grid grid-cols-3 gap-4 text-center">
               <div>
