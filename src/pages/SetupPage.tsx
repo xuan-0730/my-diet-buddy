@@ -47,105 +47,106 @@ const SetupPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background px-4 py-6 pb-24">
+    <div className="min-h-screen bg-background px-4 py-8 pb-24">
       <div className="max-w-md mx-auto space-y-6">
-        <div className="text-center space-y-1">
-          <h1 className="text-2xl font-bold">🥗 AI 减脂助手</h1>
-          <p className="text-muted-foreground text-sm">设置你的基础信息</p>
+        <div className="text-center space-y-2">
+          <div className="w-16 h-16 rounded-full bg-primary/15 flex items-center justify-center mx-auto text-3xl">🥗</div>
+          <h1 className="text-2xl font-bold">AI 减脂助手</h1>
+          <p className="text-muted-foreground text-sm">设置你的基础信息，开始健康减脂之旅</p>
         </div>
 
-        <Card>
+        <Card className="rounded-2xl card-elevated border-0">
           <CardContent className="pt-6 space-y-5">
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label>身高 (cm)</Label>
-                <Input type="number" placeholder="170" value={height} onChange={e => setHeight(e.target.value)} />
+                <Label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">身高 (cm)</Label>
+                <Input type="number" placeholder="170" value={height} onChange={e => setHeight(e.target.value)} className="rounded-xl h-12 text-base" />
               </div>
               <div className="space-y-2">
-                <Label>体重 (kg)</Label>
-                <Input type="number" placeholder="70" value={weight} onChange={e => setWeight(e.target.value)} />
+                <Label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">体重 (kg)</Label>
+                <Input type="number" placeholder="70" value={weight} onChange={e => setWeight(e.target.value)} className="rounded-xl h-12 text-base" />
               </div>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label>年龄</Label>
-                <Input type="number" placeholder="25" value={age} onChange={e => setAge(e.target.value)} />
+                <Label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">年龄</Label>
+                <Input type="number" placeholder="25" value={age} onChange={e => setAge(e.target.value)} className="rounded-xl h-12 text-base" />
               </div>
               <div className="space-y-2">
-                <Label>性别</Label>
-                <RadioGroup value={gender} onValueChange={(v) => setGender(v as 'male' | 'female')} className="flex gap-4 pt-2">
-                  <div className="flex items-center gap-1.5">
-                    <RadioGroupItem value="male" id="male" />
-                    <Label htmlFor="male" className="font-normal">男</Label>
-                  </div>
-                  <div className="flex items-center gap-1.5">
-                    <RadioGroupItem value="female" id="female" />
-                    <Label htmlFor="female" className="font-normal">女</Label>
-                  </div>
+                <Label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">性别</Label>
+                <RadioGroup value={gender} onValueChange={(v) => setGender(v as 'male' | 'female')} className="flex gap-2 pt-1">
+                  {[{ value: 'male', label: '👨 男' }, { value: 'female', label: '👩 女' }].map(opt => (
+                    <label key={opt.value} className={`flex-1 text-center py-2.5 rounded-xl cursor-pointer text-sm font-medium transition-all ${gender === opt.value ? 'bg-primary text-primary-foreground' : 'bg-secondary'}`}>
+                      <RadioGroupItem value={opt.value} className="sr-only" />
+                      {opt.label}
+                    </label>
+                  ))}
                 </RadioGroup>
               </div>
             </div>
 
             <div className="space-y-2">
-              <Label>活动量</Label>
+              <Label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">活动量</Label>
               <RadioGroup value={activity} onValueChange={(v) => setActivity(v as typeof activity)} className="grid grid-cols-2 gap-2">
                 {[
-                  { value: 'sedentary', label: '久坐' },
-                  { value: 'light', label: '轻度活动' },
-                  { value: 'moderate', label: '中度活动' },
-                  { value: 'intense', label: '高强度' },
+                  { value: 'sedentary', label: '🪑 久坐' },
+                  { value: 'light', label: '🚶 轻度' },
+                  { value: 'moderate', label: '🏃 中度' },
+                  { value: 'intense', label: '💪 高强度' },
                 ].map(opt => (
-                  <div key={opt.value} className="flex items-center gap-1.5 bg-secondary rounded-lg px-3 py-2">
-                    <RadioGroupItem value={opt.value} id={opt.value} />
-                    <Label htmlFor={opt.value} className="font-normal text-sm cursor-pointer">{opt.label}</Label>
-                  </div>
+                  <label key={opt.value} className={`text-center py-2.5 rounded-xl cursor-pointer text-sm font-medium transition-all ${activity === opt.value ? 'bg-primary text-primary-foreground' : 'bg-secondary'}`}>
+                    <RadioGroupItem value={opt.value} className="sr-only" />
+                    {opt.label}
+                  </label>
                 ))}
               </RadioGroup>
             </div>
 
             <div className="space-y-2">
-              <Label>减脂强度</Label>
+              <Label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">减脂强度</Label>
               <RadioGroup value={deficit} onValueChange={(v) => setDeficit(v as typeof deficit)} className="grid grid-cols-3 gap-2">
                 {DEFICIT_OPTIONS.map(opt => (
-                  <div key={opt.value} className="flex flex-col items-center gap-1 bg-secondary rounded-lg px-3 py-2.5">
-                    <div className="flex items-center gap-1.5">
-                      <RadioGroupItem value={opt.value} id={`def-${opt.value}`} />
-                      <Label htmlFor={`def-${opt.value}`} className="font-normal text-sm cursor-pointer">{opt.label}</Label>
-                    </div>
-                    <span className="text-xs text-muted-foreground">-{opt.kcal} kcal</span>
-                  </div>
+                  <label key={opt.value} className={`flex flex-col items-center gap-0.5 py-3 rounded-xl cursor-pointer text-sm font-medium transition-all ${deficit === opt.value ? 'bg-primary text-primary-foreground' : 'bg-secondary'}`}>
+                    <RadioGroupItem value={opt.value} className="sr-only" />
+                    <span>{opt.label}</span>
+                    <span className={`text-[10px] ${deficit === opt.value ? 'opacity-80' : 'text-muted-foreground'}`}>-{opt.kcal} kcal</span>
+                  </label>
                 ))}
               </RadioGroup>
             </div>
 
-            <Button onClick={calculate} className="w-full" size="lg">
+            <Button onClick={calculate} className="w-full rounded-2xl h-14 text-base font-semibold" size="lg">
               生成每日目标
             </Button>
           </CardContent>
         </Card>
 
         {result && (
-          <Card className="border-primary/30 bg-primary/5">
-            <CardContent className="pt-6">
-              <div className="grid grid-cols-3 gap-4 text-center">
+          <Card className="rounded-2xl card-elevated border-0 bg-gradient-to-br from-primary to-primary/80">
+            <CardContent className="pt-6 pb-5">
+              <div className="grid grid-cols-3 gap-4 text-center text-primary-foreground">
                 <div>
-                  <p className="text-xs text-muted-foreground">BMR</p>
-                  <p className="text-lg font-bold calorie-number">{result.bmr}</p>
-                  <p className="text-xs text-muted-foreground">kcal</p>
+                  <p className="text-xs opacity-70">BMR</p>
+                  <p className="text-xl font-bold calorie-number">{result.bmr}</p>
+                  <p className="text-xs opacity-70">kcal</p>
                 </div>
                 <div>
-                  <p className="text-xs text-muted-foreground">TDEE</p>
-                  <p className="text-lg font-bold calorie-number">{result.tdee}</p>
-                  <p className="text-xs text-muted-foreground">kcal</p>
+                  <p className="text-xs opacity-70">TDEE</p>
+                  <p className="text-xl font-bold calorie-number">{result.tdee}</p>
+                  <p className="text-xs opacity-70">kcal</p>
                 </div>
                 <div>
-                  <p className="text-xs text-muted-foreground">每日目标</p>
-                  <p className="text-lg font-bold calorie-number text-primary">{result.target}</p>
-                  <p className="text-xs text-muted-foreground">kcal</p>
+                  <p className="text-xs opacity-70">每日目标</p>
+                  <p className="text-xl font-bold calorie-number">{result.target}</p>
+                  <p className="text-xs opacity-70">kcal</p>
                 </div>
               </div>
-              <Button variant="outline" className="w-full mt-4" onClick={() => navigate('/')}>
+              <Button
+                variant="secondary"
+                className="w-full mt-5 rounded-2xl h-12 font-semibold"
+                onClick={() => navigate('/')}
+              >
                 开始使用 →
               </Button>
             </CardContent>

@@ -64,7 +64,7 @@ const CalendarPage = () => {
         </div>
 
         {/* Calendar Grid */}
-        <Card>
+        <Card className="rounded-2xl card-elevated border-0">
           <CardContent className="pt-4">
             <div className="grid grid-cols-7 gap-1 mb-2">
               {WEEKDAYS.map(d => (
