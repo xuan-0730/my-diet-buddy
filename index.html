@@ -1,26 +1,73 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- TODO: Set the document title to the name of your application -->
-    <title>Lovable App</title>
-    <meta name="description" content="Lovable Generated Project" />
-    <meta name="author" content="Lovable" />
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI减脂助手</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: "微软雅黑"; background: #f5f5f5; padding: 20px; }
+    .container { max-width: 500px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 0 10px #eee; }
+    h1 { color: #ff6700; text-align: center; margin-bottom: 30px; }
+    .input-item { margin-bottom: 20px; }
+    label { display: block; margin-bottom: 8px; font-size: 16px; color: #333; }
+    input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 16px; }
+    button { width: 100%; padding: 15px; background: #ff6700; color: white; border: none; border-radius: 6px; font-size: 18px; cursor: pointer; margin-top: 10px; }
+    #result { margin-top: 20px; padding: 15px; background: #f8f8f8; border-radius: 6px; font-size: 16px; color: #333; }
+    .camera-btn { background: #2196f3; margin-top: 15px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🥗 AI减脂助手</h1>
+    
+    <div class="input-item">
+      <label>身高（cm）</label>
+      <input type="number" id="height" placeholder="请输入身高，如165">
+    </div>
+    
+    <div class="input-item">
+      <label>体重（kg）</label>
+      <input type="number" id="weight" placeholder="请输入体重，如55">
+    </div>
+    
+    <button onclick="calcDiet()">生成每日减脂目标</button>
+    <button class="camera-btn" onclick="openCamera()">📷 拍照记录饮食</button>
+    
+    <div id="result">点击按钮生成你的专属目标～</div>
+  </div>
 
-    <!-- TODO: Update og:title to match your application name -->
-    <meta property="og:title" content="Lovable App" />
-    <meta property="og:description" content="Lovable Generated Project" />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+  <script>
+    // 计算减脂目标
+    function calcDiet() {
+      const height = document.getElementById('height').value;
+      const weight = document.getElementById('weight').value;
+      if (!height || !weight) {
+        document.getElementById('result').innerText = "请先输入身高和体重哦～";
+        return;
+      }
+      // 简单计算基础代谢（简化版）
+      const bmr = (10 * weight) + (6.25 * height) - (5 * 25) - 161; // 假设年龄25，女性
+      const dietTarget = bmr - 300; // 减脂每日热量目标
+      document.getElementById('result').innerText = `你的基础代谢：${bmr}大卡
+每日减脂热量目标：${dietTarget}大卡
+建议：早餐300大卡，午餐500大卡，晚餐400大卡`;
+    }
 
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@Lovable" />
-    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
-  </head>
-
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+    // 拍照功能（模拟，手机端可调用摄像头）
+    function openCamera() {
+      if (navigator.camera) {
+        // 真实手机端逻辑（需配合移动端API）
+        alert("正在打开摄像头～");
+      } else {
+        alert("点击相册选择饮食照片哦～");
+        // 模拟打开相册
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = 'image/*';
+        input.click();
+      }
+    }
+  </script>
+</body>
 </html>
